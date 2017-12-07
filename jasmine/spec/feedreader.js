@@ -34,8 +34,11 @@ $(function() {
          * (Project Details #8)
          */  
         it(`have url and it's not empty`, function() {
+            /* Loop through each each field to test */
             for(let i = 0; i < array.length; i++ ){
+                /* Checks if the current feed url exists */
                 expect( array[i].url ).toBeDefined();
+                /* Checks if the current feed url isn't empty */
                 expect( array[i].url ).not.toBe( null );
             }
         });
@@ -46,8 +49,11 @@ $(function() {
          * (Project Details #9)
          */
         it(`have name and it's not empty`, function() {
+            /* Loop through each each field to test */
             for(let i = 0; i < array.length; i++ ){
+                /* Checks if the current feed name exists */
                 expect( array[i].name ).toBeDefined();
+                /* Checks if the current feed name isn't empty */
                 expect( array[i].name ).not.toBe( null );
             }
         });
@@ -55,7 +61,9 @@ $(function() {
 
     /* TODO: Write a new test suite named "The menu" (Project Details #10)*/
     describe(`The menu`, function() {
+        /* Create a variable for the body element of the document */
         let documentBody = $('body');
+        /* Create a variable for the menu icon on the html header */
         let menuIcon = $('.menu-icon-link');
 
         /* TODO: Write a test that ensures the menu element is
@@ -65,6 +73,7 @@ $(function() {
          * (Project Details #11)
          */
         it(`is hidden by default`, function() {
+            /* Checks that the body element has the 'menu-hidden' class */
             expect(documentBody.attr('class')).toEqual('menu-hidden');
         });
 
@@ -76,10 +85,14 @@ $(function() {
          * (Project Details #12)
         */        
         it(`changes its visibility when clicked`, function() {
+            /* Triggers a click on the menu icon on the html header */
             $('.menu-icon-link').trigger('click');
+            /* Checks if body element doesn't has the class 'menu-hidden' */
             expect($('body').hasClass('menu-hidden')).toBe(false);
 
+            /* Triggers a click on the menu icon on the html header */
             $('.menu-icon-link').trigger('click');
+            /* Checks if body element has the class 'menu-hidden' */
             expect($('body').hasClass('menu-hidden')).toBe(true);
         });
     });
@@ -94,20 +107,47 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          * (Project Details #14)
          */
+        /* Calls function before spec */
         beforeEach(function(done) {
             loadFeed(0, done);
         });
 
         it(`are completed`, function() {
+            /* Cheks if feeds isn't empty */
             expect($('.feed .entry').length).toBeGreaterThan(0);
         });
     });
 
     /* TODO: Write a new test suite named "New Feed Selection" (Project Details #15) */
-
+    describe(`New Feed Selection`, function() {
+        
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          * (Project Details #16)
          */
+        /* Create variables for content loaded on feed */
+        let contentBefore,
+            contentAfter;
+
+        /* Calls function before spec */
+        beforeEach(function(done) {
+            /* Calls loadFeed function to load second url source */
+            loadFeed(1, function() {
+                /* Set variable to the actual text content on '.feed' */
+                contentBefore = $('.feed').text();
+                /* Calls loadFeed function to load third url source */
+                loadFeed(2, function() {
+                    /* Set variable to the changed text content on '.feed' */
+                    contentAfter = $('.feed').text();
+                    done();
+                });
+            });
+        });
+
+        it(`changes on new content loaded`, function() {
+            /* Checks if text on feed has been changed */
+            expect(contentAfter).not.toBe(contentBefore);
+        });
+    });
 }());
