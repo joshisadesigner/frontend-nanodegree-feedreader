@@ -82,7 +82,7 @@ $(function() {
          */
         it(`is hidden by default`, function() {
             /* Checks that the body element has the 'menu-hidden' class */
-            expect(documentBody.attr('class')).toEqual('menu-hidden');
+            expect(documentBody.hasClass('menu-hidden')).toBe(true);
         });
 
 
