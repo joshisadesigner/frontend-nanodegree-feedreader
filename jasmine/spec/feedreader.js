@@ -34,12 +34,16 @@ $(function() {
          * (Project Details #8)
          */  
         it(`have url and it's not empty`, function() {
+            /* Variable to hold current url */
+            let feedUrl;
             /* Loop through each each field to test */
             for(let i = 0; i < array.length; i++ ){
+                /* Change variable to current index */
+                feedUrl = array[i].name;
                 /* Checks if the current feed url exists */
-                expect( array[i].url ).toBeDefined();
+                expect( feedUrl ).toBeDefined();
                 /* Checks if the current feed url isn't empty */
-                expect( array[i].url ).not.toBe( null );
+                expect( feedUrl.length ).not.toBe( 0 );
             }
         });
 
@@ -49,12 +53,16 @@ $(function() {
          * (Project Details #9)
          */
         it(`have name and it's not empty`, function() {
+            /* Variable to hold current url */
+            let feedName;
             /* Loop through each each field to test */
             for(let i = 0; i < array.length; i++ ){
+                /* Change variable to current index */
+                feedName = array[i].name;
                 /* Checks if the current feed name exists */
-                expect( array[i].name ).toBeDefined();
+                expect( feedName ).toBeDefined();
                 /* Checks if the current feed name isn't empty */
-                expect( array[i].name ).not.toBe( null );
+                expect( feedName ).not.toBe( null );
             }
         });
     });
